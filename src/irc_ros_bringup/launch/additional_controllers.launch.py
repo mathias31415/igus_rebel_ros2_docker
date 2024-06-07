@@ -91,7 +91,6 @@ def generate_launch_description():
 
     description.add_action(dio_controller_node)
     description.add_action(external_dio_controller_node)
-    description.add_action(ecbpmi_controller_node)
     description.add_action(dashboard_controller_node)
 
     return description
