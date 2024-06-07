@@ -2,6 +2,7 @@
 ##                           1. stage: Base Image                           ##
 ##############################################################################
 ARG ROS_DISTRO=humble
+
 # For PC with amd64: (https://hub.docker.com/r/osrf/ros/tags?page=1&page_size=&name=&ordering=?
 FROM osrf/ros:$ROS_DISTRO-desktop as base
 
@@ -37,15 +38,14 @@ RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-std-srvs
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-moveit
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-moveit-common
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-moveit-servo
-RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-xacro
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-joint-trajectory-controller
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-joint-state-broadcaster
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-sensor-msgs-py
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-joy* 
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-rqt-controller-manager
-RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-navigation2
-RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-nav2-bringup
-#RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-turtlebot3*
+# RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-navigation2
+# RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-nav2-bringup
+# RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-turtlebot3*
 USER $USER
 
 # Setup workpace
@@ -64,7 +64,8 @@ RUN apt-get update && apt-get install -y iproute2
 
 RUN pip install scipy
 
-# Build the workspace 
+# Copy the src folder to the workspace and build the packages
+# COPY src /home/$USER/ros2_ws/src
 # RUN cd /home/$USER/ros2_ws/ && \
 #     . /opt/ros/$ROS_DISTRO/setup.sh && \
 #     colcon build --packages-select irc_ros_msgs && \
@@ -74,7 +75,7 @@ RUN pip install scipy
 #     colcon build --packages-select irc_ros_controllers && \
 #     colcon build --packages-select irc_ros_bringup
 
-# wichtig damit rviz geöffnet werden kann
+# important for opening rviz
 USER $USER  
-#USER root
+
 
