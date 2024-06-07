@@ -29,9 +29,6 @@ set(INCLUDE_DEPENDS
 include_directories(include)
 
 add_library( ${PROJECT_NAME} SHARED
-  src/irc_ros_cri.cpp
-  src/CRI/cri_socket.cpp
-  src/CRI/cri_messages.cpp
   src/irc_ros_can.cpp
   src/CAN/module.cpp
   src/CAN/joint.cpp
