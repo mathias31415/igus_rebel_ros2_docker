@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-joint-state-broadcaster
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-sensor-msgs-py
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-joy* 
 RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-rqt-controller-manager
-# RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-navigation2
+RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-navigation2
 # RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-nav2-bringup
 # RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-turtlebot3*
 USER $USER
