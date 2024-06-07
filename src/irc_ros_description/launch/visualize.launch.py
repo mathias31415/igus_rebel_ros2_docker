@@ -52,7 +52,7 @@ def generate_launch_description():
     gripper_arg = DeclareLaunchArgument(
         "gripper",
         default_value="none",
-        choices=["none", "schmalz_ecbpmi", "ext_dio_gripper"],
+        choices=["none", "ext_dio_gripper"],
         description="Which gripper to attach to the flange",
     )
 

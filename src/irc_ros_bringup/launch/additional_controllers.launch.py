@@ -61,28 +61,6 @@ def generate_launch_description():
         ),
     )
 
-    ecbpmi_controller_node = Node(
-        package="controller_manager",
-        executable="spawner",
-        namespace=LaunchConfiguration("namespace"),
-        arguments=[
-            "ecbpmi_controller",
-            "-c",
-            LaunchConfiguration("controller_manager_name"),
-        ],
-        condition=IfCondition(
-            PythonExpression(
-                [
-                    "'",
-                    LaunchConfiguration("hardware_protocol"),
-                    "' == 'cprcanv2' ",
-                    "and '",
-                    LaunchConfiguration("gripper"),
-                    "' == 'schmalz_ecbpmi' ",
-                ]
-            )
-        ),
-    )
 
     dashboard_controller_node = Node(
         package="controller_manager",
