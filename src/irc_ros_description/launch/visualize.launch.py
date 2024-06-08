@@ -45,7 +45,7 @@ def generate_launch_description():
     rebel_version_arg = DeclareLaunchArgument(
         "rebel_version",
         default_value="01",
-        choices=["pre", "00", "01"],
+        choices=["pre", "00", "01", "01_without_dio"],
         description="If visualizing an igus ReBel, chose which version to use",
     )
 
