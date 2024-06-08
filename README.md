@@ -30,56 +30,47 @@ source install/setup.bash
 ```
 
 ### (optional) enter existing container with another terminal: 
-Aktive Docker-Container anzeigen
+Show active docker containers
 ```
 docker ps
 ```
-In Docker-Container hineingehen
+Enter your docker container
 ```
 docker exec -it <container-name> bash
 ```
-Sourcen
+source
 ```
 source install/setup.bash
 ```
 
-## Without hardware
-### Visualize Robot and move joints via joint_state_publisher_gui (opens automaticly)
+## Launch robot with mock hardware
+Visualize robot and move joints via joint_state_publisher_gui (opens automaticly)
 ```
 ros2 launch irc_ros_description visualize.launch.py
 ```
-### Visualize Robot on CPR platform and move joints via joint_state_publisher_gui
-```
-ros2 launch irc_ros_description visualize.launch.py robot_name:=rebel_on_platform
-```
 
-### Launch Robot with irc_ros_bringup (without real hardware):
+Launch Robot with irc_ros_bringup (without real hardware):
 ```
 ros2 launch irc_ros_bringup rebel.launch.py hardware_protocol:=mock_hardware
 ```
 ```
-ros2 run joint_state_publisher_gui joint_state_publisher_gui
-```
-
-
-### Launch Robot on Plattform without real hardware (does not work jet):
-```
-ros2 launch irc_ros_bringup rebel_on_platform.launch.py hardware_protocol:=mock_hardware use_rqt_robot_steering:=false
+ros2 launch irc_ros_bringup rebel.launch.py rebel_version:=01_without_dio launch_dio_controller:=false launch_dashboard_controller:=false hardware_protocol:=mock_hardware
 ```
 
 
 
-
-## Launch Robot with real Hardware
+## Launch robot with real hardware
 Configure CAN interface (doesn't need to be done in Docker container)
 ```
 sudo ip link set can0 up type can bitrate 500000 restart-ms 1000
 ```
+
 ```
-ros2 launch irc_ros_bringup rebel.launch.py rebel_version:=pre launch_dio_controller:=false launch_dashboard_controller:=false
+ros2 launch irc_ros_bringup rebel.launch.py rebel_version:=01_without_dio launch_dio_controller:=false launch_dashboard_controller:=false
 ```
+
 ```
-ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_controller:=false rebel_version:=pre
+ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_controller:=false rebel_version:=01_without_dio
 ```
 
 
@@ -103,12 +94,3 @@ ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_contr
 
 --> pre version works, but gear ratio seems to
 
-
-
-Fehler nach aussortieren Repo:
-igus_rebel_user@ubuntu:~/ros2_ws$ ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_controller:=false rebel_version:=pre
-[INFO] [launch]: All log files can be found below /home/igus_rebel_user/.ros/log/2024-06-03-16-07-30-416218-ubuntu-6225
-[INFO] [launch]: Default logging verbosity is set to INFO
-[ERROR] [launch]: Caught exception in launch (see debug for traceback): executed command failed. Command: /opt/ros/humble/bin/xacro /home/igus_rebel_user/ros2_ws/install/irc_ros_description/share/irc_ros_description/urdf/igus_rebel_6dof.urdf.xacro prefix:= hardware_protocol:=cprcanv2 gripper:=none rebel_version:=pre
-Captured stderr output: error: No such file or directory: /home/igus_rebel_user/ros2_ws/install/irc_ros_description/share/irc_ros_description/urdf/grippers/grippers.macro.xacro [Errno 2] No such file or directory: '/home/igus_rebel_user/ros2_ws/install/irc_ros_description/share/irc_ros_description/urdf/grippers/grippers.macro.xacro'
-when processing file: /home/igus_rebel_user/ros2_ws/install/irc_ros_description/share/irc_ros_description/urdf/igus_rebel_6dof.urdf.xacro
