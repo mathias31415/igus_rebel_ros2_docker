@@ -57,6 +57,12 @@ sudo ip link set can0 up type can bitrate 500000 restart-ms 1000
 ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_controller:=false rebel_version:=01_without_dio
 ```
 
+
+## Note E-STop
+As we use the open source version without a controller, the emergency stop is not connected to the CAN bus. The emergency stop interrupts the supply voltage of the axes (5V logic voltage is retained). After resetting the emergency stop, the robot is not automatically activated. The ros software must therefore be relaunched manually.
+
+
 ## TODOs
 - verschiedene planer in RVIZ --> bei UR oder diy_robotics schauen
-
+- Autostart der ROS-Application auf RaspberryPi beim hochfahren
+- CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss
