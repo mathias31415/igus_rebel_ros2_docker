@@ -1,4 +1,4 @@
-# IgusReBel
+# igus_rebel_ros2_docker
 
 This Repo uses packages from https://github.com/CommonplaceRobotics/iRC_ROS
 
