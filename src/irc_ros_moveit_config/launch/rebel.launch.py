@@ -214,7 +214,7 @@ def opaque_test(context, *args, **kwargs):
     for d in moveit_args_not_concatenated:
         moveit_args.update(d)
 
-    print(moveit_args)
+    # print(moveit_args)
 
     move_group_node = Node(
         package="moveit_ros_move_group",
@@ -278,7 +278,10 @@ def opaque_test(context, *args, **kwargs):
         arguments=["-d", rviz_file],
         parameters=[
             # Passing the entire dict to rviz results in an error with the joint limits
-            {"robot_description": robot_description},
+            
+            # TODO Was wird zusätzlich benötigt um Planer in RVIZ auswählen zu können?
+            moveit_args,
+            # {"robot_description": robot_description},
         ],
         condition=IfCondition(use_rviz),
     )
@@ -332,7 +335,7 @@ def generate_launch_description():
     rebel_version_arg = DeclareLaunchArgument(
         "rebel_version",
         default_value="01",
-        choices=["pre", "00", "01"],
+        choices=["pre", "00", "01", "01_without_dio"],
         description="Which version of the igus ReBeL to use",
     )
 
