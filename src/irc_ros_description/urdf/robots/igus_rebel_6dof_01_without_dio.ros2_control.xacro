@@ -44,6 +44,7 @@
         <state_interface name="digital_input_5" data_type="bool" />
         <state_interface name="digital_input_6" data_type="bool" />
       </gpio>
+      -->
 
       <gpio name="${prefix}dio_arm">
         <param name="can_id">0x80</param>
@@ -53,7 +54,7 @@
         <state_interface name="digital_input_1" data_type="bool" />
       </gpio>
 
-      -->
+      
 
    </ros2_control>
   </xacro:macro>
