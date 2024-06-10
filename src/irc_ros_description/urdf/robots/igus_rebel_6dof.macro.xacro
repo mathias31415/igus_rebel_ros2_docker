@@ -31,7 +31,7 @@
       <xacro:igus_rebel_6dof_01_ros2_control prefix="${prefix}" hardware_protocol="${hardware_protocol}" continuous_last_joint="${continuous_last_joint}" />
     </xacro:if>
     <xacro:if value="${rebel_version == '01_without_dio'}">
-      <xacro:igus_rebel_6dof_00_description prefix="${prefix}" continuous_last_joint="${continuous_last_joint}" />
+      <xacro:igus_rebel_6dof_01_without_dio_description prefix="${prefix}" continuous_last_joint="${continuous_last_joint}" />
       <xacro:igus_rebel_6dof_01_without_dio_ros2_control prefix="${prefix}" hardware_protocol="${hardware_protocol}" continuous_last_joint="${continuous_last_joint}" />
     </xacro:if>    
   </xacro:macro>
