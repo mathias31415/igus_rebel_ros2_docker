@@ -44,6 +44,12 @@ source install/setup.bash
 ```
 
 ## Launch robot with mock hardware
+```
+ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_controller:=false rebel_version:=01_without_dio hardware_protocol:=mock_hardware
+```
+
+
+(
 Visualize robot and move joints via joint_state_publisher_gui (opens automaticly)
 ```
 ros2 launch irc_ros_description visualize.launch.py
@@ -56,7 +62,7 @@ ros2 launch irc_ros_bringup rebel.launch.py hardware_protocol:=mock_hardware
 ```
 ros2 launch irc_ros_bringup rebel.launch.py rebel_version:=01_without_dio launch_dio_controller:=false launch_dashboard_controller:=false hardware_protocol:=mock_hardware
 ```
-
+)
 
 
 ## Launch robot with real hardware
@@ -64,15 +70,16 @@ Configure CAN interface (doesn't need to be done in Docker container)
 ```
 sudo ip link set can0 up type can bitrate 500000 restart-ms 1000
 ```
-
-```
-ros2 launch irc_ros_bringup rebel.launch.py rebel_version:=01_without_dio launch_dio_controller:=false launch_dashboard_controller:=false
-```
-
 ```
 ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_controller:=false rebel_version:=01_without_dio
 ```
 
+
+(
+```
+ros2 launch irc_ros_bringup rebel.launch.py rebel_version:=01_without_dio launch_dio_controller:=false launch_dashboard_controller:=false
+```
+)
 
 
 ## TODOs
