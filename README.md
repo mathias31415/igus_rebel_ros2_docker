@@ -43,12 +43,12 @@ source
 source install/setup.bash
 ```
 
-## Launch robot with mock hardware
+## Launch robot with mock hardware --> funktioniert so nicht mehr, siehe unten
 ```
 ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_controller:=false rebel_version:=01_without_dio hardware_protocol:=mock_hardware
 ```
 
-## Launch robot with real hardware
+## Launch robot with real hardware --> funktioniert so nicht mehr, siehe unten
 Configure CAN interface (doesn't need to be done in Docker container)
 ```
 sudo ip link set can0 up type can bitrate 500000 restart-ms 1000
@@ -61,6 +61,15 @@ ros2 launch irc_ros_moveit_config rebel.launch.py gripper:=none launch_dio_contr
 ## Note E-STop
 As we use the open source version without a controller, the emergency stop is not connected to the CAN bus. The emergency stop interrupts the supply voltage of the axes (5V logic voltage is retained). After resetting the emergency stop, the robot is not automatically activated. The ros software must therefore be relaunched manually.
 
+#####################################################################################################################
+## Launch after complete system integration
+
+1) clone the repo on a raspery py
+2) build the image with ```build_docker.sh```
+3) start the conteiner ONCE with ```start_docker.sh``` ---> note: if you have done this ONCE, the contaienr will start at every new rasperry boot automatically and all ROS2 nodes are up!
+4) you can access the contanier from a new attached terminal
+5) for visualization run ```ros2 launch irc_ros_bringup rviz.launch.py```
+
 
 ## TODOs
 - verschiedene planer in RVIZ --> bei UR oder diy_robotics schauen ---> CHECK
@@ -70,4 +79,6 @@ As we use the open source version without a controller, the emergency stop is no
 - .env Datei für ROS Domain hinzufügen ---> CHECK
 
 - Autostart der ROS-Application auf RaspberryPi beim hochfahren ---> CHECK auf PC gehts, Rsapi noch testen
+
+
 - CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss
