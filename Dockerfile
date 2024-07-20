@@ -30,6 +30,7 @@ WORKDIR /home/$USER/ros2_ws
 USER root
 RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-xacro
 RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-joint-state-publisher-gui
+RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-nav2-common
 USER $USER
 
 # install necessary packages for ros2 control
@@ -84,9 +85,6 @@ RUN apt-get update && apt-get install -y usbutils
 RUN apt-get update && apt-get install -y iproute2
 USER $USER 
 
-USER root
-RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-nav2-common
-USER $USER
 
 # Copy src into src folder to build the workspace initially --> mounting overwrites this
 COPY ./src /home/$USER/ros2_ws/src
