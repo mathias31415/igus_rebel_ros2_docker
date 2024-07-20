@@ -63,6 +63,11 @@ As we use the open source version without a controller, the emergency stop is no
 
 
 ## TODOs
-- verschiedene planer in RVIZ --> bei UR oder diy_robotics schauen
-- Autostart der ROS-Application auf RaspberryPi beim hochfahren
+- verschiedene planer in RVIZ --> bei UR oder diy_robotics schauen ---> CHECK
+- moveit clients und python interface ---> CHECK
+- 2 separate launch files für rviz ---> CHECK
+- run in build und start skript aufteilen für autostart ---> CHECK
+- .env Datei für ROS Domain hinzufügen ---> CHECK
+
+- Autostart der ROS-Application auf RaspberryPi beim hochfahren ---> CHECK auf PC gehts, Rsapi noch testen
 - CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss

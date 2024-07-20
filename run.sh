@@ -37,6 +37,6 @@ docker run \
   -v "$SRC_HOST":"$SRC_CONTAINER":rw \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
   -e DISPLAY="$DISPLAY" \
-  igus-rebel/ros-render:"$ROS_DISTRO" bash
+  igus-rebel/ros-render:"$ROS_DISTRO"
 
 # display and network access is already passed to the container

@@ -30,7 +30,6 @@ WORKDIR /home/$USER/ros2_ws
 USER root
 RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-xacro
 RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-joint-state-publisher-gui
-
 USER $USER
 
 # install necessary packages for ros2 control
@@ -89,18 +88,21 @@ USER root
 RUN apt-get update && apt-get install -y ros-${ROS_DISTRO}-nav2-common
 USER $USER
 
-# Build the workspace package (application)
-# RUN cd /home/$USER/ros2_ws && \
-#     . /opt/ros/$ROS_DISTRO/setup.sh && \
-#     colcon build
+# Copy src into src folder to build the workspace initially --> mounting overwrites this
+COPY ./src /home/$USER/ros2_ws/src
 
-# # Add built package to entrypoint by calling install/setup.bash
-# USER root
-# RUN sed -i 's|exec "\$@"|source "/home/'"${USER}"'/ros2_ws/install/setup.bash"\n&|' /ros_entrypoint.sh
-# USER $USER
+# Build the workspace packages
+RUN cd /home/$USER/ros2_ws && \
+     . /opt/ros/$ROS_DISTRO/setup.sh && \
+     colcon build
+
+# Add built package to entrypoint by calling install/setup.bash
+USER root
+RUN sed -i 's|exec "\$@"|source "/home/'"${USER}"'/ros2_ws/install/setup.bash"\n&|' /ros_entrypoint.sh
+USER $USER
 
 
-# # autostart bringup with rviz
-# CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py"]
+# autostart bringup with rviz
+CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py", "hardware_protocol:=mock_hardware"]
 
 
