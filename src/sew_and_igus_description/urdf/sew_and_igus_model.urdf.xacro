@@ -118,9 +118,9 @@
     </xacro:igus_rebel_6dof>
 
 
-<!-- call the depth camera sensor plugin (mounted on tcp od the igus robot)-->
-    <xacro:include filename="$(find sew_and_igus_description)/urdf/gazebo_depth_camera_macro.urdf.xacro" />
-    <xacro:igus_depth_camera_gazebo prefix="$(arg prefix)"/>
+<!-- call the depth camera sensor plugin (mounted on tcp od the igus robot), only available with simulated hardware-->
+    <!--<xacro:include filename="$(find sew_and_igus_description)/urdf/gazebo_depth_camera_macro.urdf.xacro" />
+    <xacro:igus_depth_camera_gazebo prefix="$(arg prefix)"/> -->
 
 <!--#######################################################################################################################################-->
    <!-- joint which connects the sew agv and the igus arm -->

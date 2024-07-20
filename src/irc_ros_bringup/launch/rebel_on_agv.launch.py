@@ -27,12 +27,13 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "generate_ros2_control_tag",
-            default_value='true',
-            description="launch the drivers that connect to the real hardware via IP",
+            default_value='false',
+            description="launch the drivers that connect to the real agv hardware via IP",  # not used in the igus repo, agv is just a collision object here
         )
     )
     declared_arguments.append(
-    DeclareLaunchArgument('use_sim_time',
+        DeclareLaunchArgument(
+            'use_sim_time',
             default_value='false',
             description='Set to "true" if you want to use the gazebo clock, set to "fasle" if you use real hardware.'
         )
