@@ -8,12 +8,8 @@ from launch.conditions import IfCondition
 
 
 def generate_launch_description():
-    sim_package = "gazebo_testenviroment"
     igus_moveit_package = "sew_and_igus_moveit_config"
-    navigation_package = "sew_agv_navigation"
-    bringup_package = "complete_bringup"
-    driver_package = "sew_agv_drivers"
-    description_package = "sew_and_igus_description"
+    bringup_package = "irc_ros_bringup"
 
     declared_arguments = []
     # agv launch arguments
@@ -27,8 +23,15 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "generate_ros2_control_tag",
-            default_value='false',
+            default_value='true',
             description="launch the drivers that connect to the real agv hardware via IP",  # not used in the igus repo, agv is just a collision object here
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            'use_fake_hardware',
+            default_value='true',
+            description="use the fake hardware on the agv, because in this repo the agv is only used for collision avoidance, agv control is done in a seperate container",
         )
     )
     declared_arguments.append(
@@ -107,7 +110,7 @@ def generate_launch_description():
     #launch additional hardware controllers
     irc_ros_bringup_launch_dir = PathJoinSubstitution(
         [
-            FindPackageShare("irc_ros_bringup"),
+            FindPackageShare(bringup_package),
             "launch",
         ]
     )

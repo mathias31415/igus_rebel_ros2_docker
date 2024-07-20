@@ -32,6 +32,7 @@ def opaque_test(context, *args, **kwargs):
     gazebo_standalone = LaunchConfiguration("gazebo_standalone")
     generate_ros2_control_tag = LaunchConfiguration("generate_ros2_control_tag")
     robot_ip = LaunchConfiguration("robot_ip")
+    use_fake_hardware = LaunchConfiguration("use_fake_hardware")
     
     gripper = LaunchConfiguration("gripper")
     prefix = LaunchConfiguration("prefix")
@@ -49,9 +50,9 @@ def opaque_test(context, *args, **kwargs):
     # only needed for real hardware
     robot_controller_config_file = PathJoinSubstitution(
         [
-            FindPackageShare("irc_ros_bringup"),
+            FindPackageShare(moveit_package),
             "config",
-            "controller_igus_rebel_6dof.yaml",
+            "ros2_controllers.yaml",
         ]
     )
     robot_controller_config = ReplaceString(
@@ -59,7 +60,7 @@ def opaque_test(context, *args, **kwargs):
         replacements={
             "<namespace>": namespace,
             "<prefix>": prefix,
-        },
+        }
     )
     external_dio_controllers_file = PathJoinSubstitution(
         [
@@ -118,6 +119,8 @@ def opaque_test(context, *args, **kwargs):
             generate_ros2_control_tag,
             " robot_ip:=",
             robot_ip,
+            " use_fake_hardware:=",
+            use_fake_hardware,
         ]
     )
     robot_description_semantic_file = PathJoinSubstitution(
@@ -262,21 +265,6 @@ def opaque_test(context, *args, **kwargs):
         parameters=[{"robot_description": robot_description}],
     )
 
-    joint_state_pub = Node(
-        package="joint_state_publisher",
-        executable="joint_state_publisher",
-        name="joint_state_publisher",
-        namespace=namespace,
-        parameters=[
-            {
-                "source_list": [
-                    "/joint_states",
-                ],
-                "rate": 30,
-            }
-        ],
-    )
-
     control_node = Node(
         package="controller_manager",
         executable="ros2_control_node",
@@ -297,14 +285,7 @@ def opaque_test(context, *args, **kwargs):
         arguments=["joint_state_broadcaster", "-c", controller_manager_name],
     )
 
-    joint_trajectory_controller_node = Node(
-        package="controller_manager",
-        executable="spawner",
-        namespace=namespace,
-        arguments=["joint_trajectory_controller", "-c", controller_manager_name],
-    )
-
-    # controller for moveit, the controller manager is already up and running when you launch this file from the simulation.launch.py because its launched in the sew_agv_drivers/driver.launch.py
+    # is renamed joint trajectory controller
     rebel_6dof_controller_node = Node(
         package="controller_manager",
         executable="spawner",
@@ -312,6 +293,18 @@ def opaque_test(context, *args, **kwargs):
         arguments=["rebel_6dof_controller", "-c", controller_manager_name],
     )
 
+    rviz_node = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        parameters=[
+            # Passing the entire dict to rviz results in an error with the joint limits
+            
+            # TODO Was wird zusätzlich benötigt um Planer in RVIZ auswählen zu können?
+            moveit_args,
+            # {"robot_description": robot_description},
+        ]
+    )
 
     return [
         move_group_node,
@@ -319,9 +312,8 @@ def opaque_test(context, *args, **kwargs):
         rebel_6dof_controller_node,
         control_node,
         joint_state_broadcaster_node,
-        joint_trajectory_controller_node,
         robot_state_pub,
-        joint_state_pub,
+        rviz_node,
     ]
 
 
@@ -343,13 +335,18 @@ def generate_launch_description():
         )
     gazebo_standalone_arg = DeclareLaunchArgument(
             "gazebo_standalone",
-            default_value='true',
+            default_value='false',
             description="choose gazebo hardware plugin for sew with diff_drive controller, not ros2 control",
         )
     generate_ros2_control_tag_arg = DeclareLaunchArgument(
             "generate_ros2_control_tag",
             default_value='false',
             description="launch the drivers that connect to the real hardware via IP or to gazebo via gazebo_ros2_control -- standalone preferes",
+        )
+    use_fake_hardware_arg = DeclareLaunchArgument(
+            "use_fake_hardware",
+            default_value='false',
+            description="use the fake hardware on the agv, because in this repo the agv is only used for collision avoidance, agv control is done in a seperate container",
         )
 
     #igus args
@@ -375,8 +372,8 @@ def generate_launch_description():
         )
     rebel_version_arg = DeclareLaunchArgument(
             "rebel_version",
-            default_value="01",
-            choices=["pre", "00", "01"],
+            default_value="01_without_dio",
+            choices=["pre", "00", "01", "01_without_dio"],
             description="Which version of the igus ReBeL to use",
         )
     
@@ -403,6 +400,7 @@ def generate_launch_description():
     ld.add_action(robot_ip_arg)
     ld.add_action(gazebo_standalone_arg)
     ld.add_action(generate_ros2_control_tag_arg)
+    ld.add_action(use_fake_hardware_arg)
 
     ld.add_action(namespace_arg)
     ld.add_action(prefix_arg)

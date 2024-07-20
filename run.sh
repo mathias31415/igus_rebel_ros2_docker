@@ -32,6 +32,7 @@ docker run \
   -it \
   --privileged \
   --net=host \
+  --env-file .env\
   -v /dev:/dev \
   -v "$SRC_HOST":"$SRC_CONTAINER":rw \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
