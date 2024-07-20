@@ -71,6 +71,9 @@ As we use the open source version without a controller, the emergency stop is no
 5) for visualization run ```ros2 launch irc_ros_bringup rviz.launch.py```
 
 
+### ACHTUNG: currently with mock_hardware in autostart --> modify dockerfile for real hardware
+
+
 ## TODOs
 - verschiedene planer in RVIZ --> bei UR oder diy_robotics schauen ---> CHECK
 - moveit clients und python interface ---> CHECK
