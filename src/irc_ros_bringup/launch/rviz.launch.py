@@ -7,7 +7,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.conditions import IfCondition
 
 def generate_launch_description():
-    igus_moveit_package = "sew_and_igus_moveit_config"
+    moveit_package = "sew_and_igus_moveit_config"
     bringup_package = "irc_ros_bringup"
 
     declared_arguments = []
@@ -21,10 +21,21 @@ def generate_launch_description():
     rviz_config_file_name = LaunchConfiguration("rviz_config_file_name")
     rviz_file = PathJoinSubstitution([FindPackageShare(bringup_package), "rviz", rviz_config_file_name])
 
+    robot_description_kinematics_file = PathJoinSubstitution(
+        [
+            FindPackageShare(moveit_package),
+            "config",
+            "kinematics.yaml",
+        ]
+    )
+
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
         name="rviz2",
+        parameters=[
+            robot_description_kinematics_file,  # needed for interactive marker on the tcp
+        ],
         arguments=["-d", rviz_file],
     )
 
