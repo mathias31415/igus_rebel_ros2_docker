@@ -84,4 +84,4 @@ As we use the open source version without a controller, the emergency stop is no
 - Autostart der ROS-Application auf RaspberryPi beim hochfahren ---> CHECK auf PC gehts, Rsapi noch testen
 
 
-- CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss
+- CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss ---> mit crontlab/ systemd device siehe setup_can.sh
