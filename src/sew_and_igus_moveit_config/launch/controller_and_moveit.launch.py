@@ -40,31 +40,41 @@ def opaque_test(context, *args, **kwargs):
     rebel_version = LaunchConfiguration("rebel_version")
 
     controller_manager_name = LaunchConfiguration("controller_manager_name")
-    launch_rviz = LaunchConfiguration("launch_rviz")
     use_sim_time = LaunchConfiguration("use_sim_time")
 
     moveit_package = "sew_and_igus_moveit_config"
     description_package = "sew_and_igus_description"
     
-    rviz_file = PathJoinSubstitution(
-        [FindPackageShare(moveit_package), "rviz", "moveit_rviz.rviz"]
-    )
 
-    # only needed for real hardware --> currently the ros2 control related things are launched in the complete_bringup/simulation.launch.py
-    # ros2_controllers_file = PathJoinSubstitution(
-    #     [
-    #         FindPackageShare(moveit_package),
-    #         "config",
-    #         "ros2_controllers_simulation.yaml",
-    #     ]
-    # )
-    # ros2_controllers = ReplaceString(
-    #     source_file=ros2_controllers_file,
-    #     replacements={
-    #         "<namespace>": namespace,
-    #         "<prefix>": prefix,
-    #     },
-    # )
+    # only needed for real hardware
+    robot_controller_config_file = PathJoinSubstitution(
+        [
+            FindPackageShare("irc_ros_bringup"),
+            "config",
+            "controller_igus_rebel_6dof.yaml",
+        ]
+    )
+    robot_controller_config = ReplaceString(
+        source_file=robot_controller_config_file,
+        replacements={
+            "<namespace>": namespace,
+            "<prefix>": prefix,
+        },
+    )
+    external_dio_controllers_file = PathJoinSubstitution(
+        [
+            FindPackageShare("irc_ros_bringup"),
+            "config",
+            "controller_dio_module.yaml",
+        ]
+    )
+    external_dio_controllers = ReplaceString(
+        source_file=external_dio_controllers_file,
+        replacements={
+            "<namespace>": namespace,
+            "<prefix>": prefix,
+        }
+    )
 
     joint_limits_file = PathJoinSubstitution(
         [
@@ -167,13 +177,6 @@ def opaque_test(context, *args, **kwargs):
             "kinematics.yaml",
         ]
     )
-    # robot_description_kinematics = ReplaceString(
-    #     source_file=robot_description_kinematics_file,
-    #     replacements={
-    #         "<namespace>": namespace,
-    #         "<prefix>": prefix,
-    #     },
-    # )
 
     planning_pipeline = {
         "move_group": {
@@ -207,7 +210,6 @@ def opaque_test(context, *args, **kwargs):
     moveit_args_not_concatenated = [
         {"robot_description": robot_description.perform(context)},
         {"robot_description_semantic": robot_description_semantic.perform(context)},
-        #load_yaml(Path(robot_description_kinematics.perform(context))),
         load_yaml(Path(joint_limits.perform(context))),
         moveit_controllers,
         planning_scene_monitor_parameters,
@@ -251,25 +253,56 @@ def opaque_test(context, *args, **kwargs):
         parameters=[robot_description, robot_description_semantic, robot_description_kinematics_file, planning_group, {'use_sim_time': use_sim_time}],
     )
 
-    # only launch with real hardware -> TODO
-    # control_node = Node(
-    #     package="controller_manager",
-    #     executable="ros2_control_node",
-    #     namespace=namespace,
-    #     parameters=[
-    #         moveit_args,
-    #         ros2_controllers,
-    #         {'use_sim_time': use_sim_time}
-    #     ],
-    # )
+    # only launch with real hardware
+    robot_state_pub = Node(
+        package="robot_state_publisher",
+        executable="robot_state_publisher",
+        name="robot_state_publisher",
+        namespace=namespace,
+        parameters=[{"robot_description": robot_description}],
+    )
 
+    joint_state_pub = Node(
+        package="joint_state_publisher",
+        executable="joint_state_publisher",
+        name="joint_state_publisher",
+        namespace=namespace,
+        parameters=[
+            {
+                "source_list": [
+                    "/joint_states",
+                ],
+                "rate": 30,
+            }
+        ],
+    )
 
-    # joint_state_broadcaster_node = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     namespace=namespace,
-    #     arguments=["joint_state_broadcaster", "-c", controller_manager_name],
-    # )
+    control_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        namespace=namespace,
+        parameters=[
+            moveit_args,
+            {'use_sim_time': use_sim_time},
+            {"robot_description": robot_description},
+            robot_controller_config,
+            external_dio_controllers,
+        ],
+    )
+
+    joint_state_broadcaster_node = Node(
+        package="controller_manager",
+        executable="spawner",
+        namespace=namespace,
+        arguments=["joint_state_broadcaster", "-c", controller_manager_name],
+    )
+
+    joint_trajectory_controller_node = Node(
+        package="controller_manager",
+        executable="spawner",
+        namespace=namespace,
+        arguments=["joint_trajectory_controller", "-c", controller_manager_name],
+    )
 
     # controller for moveit, the controller manager is already up and running when you launch this file from the simulation.launch.py because its launched in the sew_agv_drivers/driver.launch.py
     rebel_6dof_controller_node = Node(
@@ -280,25 +313,15 @@ def opaque_test(context, *args, **kwargs):
     )
 
 
-    rviz_node = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        arguments=["-d", rviz_file],
-        parameters=[
-            {"robot_description": robot_description},
-            {'use_sim_time': use_sim_time},
-            moveit_args,
-            robot_description_kinematics_file,
-        ],
-        condition=IfCondition(launch_rviz),
-    )
-
     return [
         move_group_node,
         moveit_wrapper_node,
         rebel_6dof_controller_node,
-        rviz_node,
+        control_node,
+        joint_state_broadcaster_node,
+        joint_trajectory_controller_node,
+        robot_state_pub,
+        joint_state_pub,
     ]
 
 
