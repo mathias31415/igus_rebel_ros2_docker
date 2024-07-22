@@ -14,6 +14,6 @@ WantedBy=multi-user.target
 ---> TODO:
 1) move this file to /etc/systemd/system/
 2) replace PATH_to_script with the real path: on raspi: /home/agv/Igus_and_AGV/igus_rebel_ros2_docker/
-3) replace YOUR_USER with agv
+3) replace YOUR_USER with root
 4) enable service so that it runs on boot sudo systemctl enable setup_xhost.service
 5) reboot
