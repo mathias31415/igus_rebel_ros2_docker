@@ -84,4 +84,6 @@ Could not load the Qt platform plugin "xcb" in "" even though it was found. --> 
 - Autostart der ROS-Application auf RaspberryPi beim hochfahren ---> CHECK
 - CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss ---> CHECK
 - Raspy Reboot Button über Python Skript abfragen --->
+    - installieren lokal: sudo apt install -y python3-rpi-gpio ---> import RPi.GPIO as GPIO ---> GEHT NICHT DA RPI 5 ANDEREN GPIP CHIP HAT  
+    - statdessen verwenden: 
 - Raspy WIFO Hotspot öffnen --->
