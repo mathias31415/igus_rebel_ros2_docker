@@ -1,11 +1,12 @@
 [Unit]
 Description=Allow Docker containers to access the X server
-After=display-manager.service
+After=graphical.target
 
 [Service]
 Type=oneshot
-ExecStart=//home/agv/Igus_and_AGV/igus_rebel_ros2_docker/setup_xhost.sh
-User=your-username
+ExecStart=/PATH_to_script/setup_xhost.sh
+User=YOUR_USER
+Enviroment="DISPLAY=:0"
 
 [Install]
 WantedBy=default.target
@@ -14,5 +15,6 @@ WantedBy=default.target
 ---> TODO:
 1) move this file to /etc/systemd/system/
 2) replace PATH_to_script with the real path: on raspi: /home/agv/Igus_and_AGV/igus_rebel_ros2_docker/
-2) enable service so that it runs on boot sudo systemctl enable setup_can.service
-3) reboot
+3) replace YOUR_USER with agv
+4) enable service so that it runs on boot sudo systemctl enable setup_xhost.service
+5) reboot
