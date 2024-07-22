@@ -3,7 +3,7 @@ Description=Start Wi-Fi Hotspot
 After=network.target
 
 [Service]
-ExecStart=/PATH_to_script/start-hotspot.sh
+ExecStart=/PATH_to_script/setup_hotspot.sh
 RemainAfterExit=yes
 User=YOUR_USER
 
