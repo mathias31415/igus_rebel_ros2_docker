@@ -7,7 +7,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(controller_interface REQUIRED)
-find_package(example_interfaces REQUIRED)
+#find_package(example_interfaces REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(irc_ros_hardware REQUIRED)
 find_package(irc_ros_msgs REQUIRED)
@@ -18,7 +18,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 set(INCLUDE_DEPENDS
   ament_cmake
   controller_interface
-  example_interfaces
+ # example_interfaces
   hardware_interface
   irc_ros_hardware
   irc_ros_msgs

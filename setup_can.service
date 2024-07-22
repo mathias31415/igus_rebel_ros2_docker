@@ -10,10 +10,8 @@ User=root
 [Install]
 WantedBy=multi-user.target
 
----> TODO:
 
+---> TODO:
 1) move this file to /etc/systemd/system/
 2) enable service so that it runs on boot sudo systemctl enable setup_can.service
 3) reboot
-
-ChatGPT: https://chatgpt.com/c/2d1382c1-44f7-42fa-9b09-1ad24059948f
