@@ -81,8 +81,7 @@ Could not load the Qt platform plugin "xcb" in "" even though it was found. --> 
 - 2 separate launch files für rviz ---> CHECK
 - run in build und start skript aufteilen für autostart ---> CHECK
 - .env Datei für ROS Domain hinzufügen ---> CHECK
-
-- Autostart der ROS-Application auf RaspberryPi beim hochfahren ---> CHECK auf PC gehts, Rsapi noch testen
-
-
-- CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss ---> mit crontlab/ systemd device siehe setup_can.sh
+- Autostart der ROS-Application auf RaspberryPi beim hochfahren ---> CHECK
+- CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss ---> CHECK
+- Raspy Reboot Button über Python Skript abfragen --->
+- Raspy WIFO Hotspot öffnen --->
