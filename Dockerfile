@@ -4,10 +4,10 @@
 ARG ROS_DISTRO=humble
 
 # For PC with amd64: (https://hub.docker.com/r/osrf/ros/tags?page=1&page_size=&name=&ordering=?
-FROM osrf/ros:$ROS_DISTRO-desktop as base
+FROM osrf/ros:$ROS_DISTRO-desktop AS base
 
 #For RaspberryPi with arm64: (https://hub.docker.com/r/arm64v8/ros/tags)
-#FROM arm64v8/ros:$ROS_DISTRO as base
+#FROM arm64v8/ros:$ROS_DISTRO AS base
 
 # Configure DDS for node communication
 COPY dds_profile.xml /opt/misc/dds_profile.xml
@@ -101,6 +101,8 @@ USER $USER
 
 
 # autostart bringup with rviz
-CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py", "hardware_protocol:=mock_hardware"]
+CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py"] 
+
+#, "hardware_protocol:=mock_hardware"
 
 

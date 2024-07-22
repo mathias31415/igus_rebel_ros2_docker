@@ -140,7 +140,7 @@ def generate_launch_description():
 
 
     nodes_to_start = [
-        additional_controllers,
+        # additional_controllers,       --> currently not supported due to the open source hardware version of the igus
         load_igus,
     ]
 
