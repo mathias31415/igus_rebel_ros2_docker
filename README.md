@@ -72,7 +72,8 @@ As we use the open source version without a controller, the emergency stop is no
 
 
 ### ACHTUNG: currently with mock_hardware in autostart --> modify dockerfile for real hardware
-
+## Fixes/ Problems
+Could not load the Qt platform plugin "xcb" in "" even though it was found. --> ```xhost +local:docker```
 
 ## TODOs
 - verschiedene planer in RVIZ --> bei UR oder diy_robotics schauen ---> CHECK
