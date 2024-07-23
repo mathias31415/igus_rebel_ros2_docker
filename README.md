@@ -83,8 +83,8 @@ Could not load the Qt platform plugin "xcb" in "" even though it was found. --> 
 - .env Datei für ROS Domain hinzufügen ---> CHECK
 - Autostart der ROS-Application auf RaspberryPi beim hochfahren ---> CHECK
 - CAN Adapter automatisch einrichten, damit befehl nicht jedes mal ins Terminal eingegeben werden muss ---> CHECK
-- Raspy Reboot Button über Python Skript abfragen und das in Autostart packen ---> 
+- Raspy Reboot Button über Python Skript abfragen und das in Autostart packen ---> CHECK
     - installieren lokal: sudo apt-get install -y python3-rpi-gpio ---> import RPi.GPIO as GPIO ---> GEHT NICHT DA RPI 5 ANDEREN GPIP CHIP HAT  
     - statdessen verwenden: sudo apt-get install python3-gpiozero ---> from gpiozero import Button
-- Raspy WIFO Hotspot öffnen --->
-- xhost baim Autostart Problem lösen --->
+- Raspy WIFO Hotspot öffnen ---> CHECK
+- xhost baim Autostart Problem lösen ---> nicht mehr notwendig
