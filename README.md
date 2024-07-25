@@ -64,7 +64,7 @@ These packages provide all functionalities regarding the robots motion planning 
 ### Hardware Overview:
 
 The following graphic shows all of the needed hardware buttons and switches.  
-<img src="img/switches_back.png" alt="drawing" height="400"/> <img src="img/switches_robot.png" alt="drawing" height="400"/>
+<img src="img/switches_back.png" alt="drawing" height="400"/> <img src="img/switches_robot.png" alt="drawing" height="250"/>
 
 ### Mount the Robot on the AGV:
 
