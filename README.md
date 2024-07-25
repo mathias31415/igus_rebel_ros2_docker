@@ -24,10 +24,10 @@ On Ubuntu we then installed docker acording to this [tutorial](https://docs.dock
 Depending on whether you want to use the software on your PC (with amd64 processor) or on a RaspberryPi (with arm64 processor) you have to change the base image in the `Dockerfile` file, by comenting/ uncomenting the following lines:
 ```shell
 # For PC with amd64: (https://hub.docker.com/r/osrf/ros/tags?page=1&page_size=&name=&ordering=?)
-FROM osrf/ros:$ROS_DISTRO-desktop as base
+FROM osrf/ros:$ROS_DISTRO-desktop AS base
 
 # For RaspberryPi with arm64: (https://hub.docker.com/r/arm64v8/ros/tags)
-FROM arm64v8/ros:$ROS_DISTRO as base
+FROM arm64v8/ros:$ROS_DISTRO AS base
 ```
 
 ## Provided ROS2-Packages
