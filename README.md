@@ -1,6 +1,6 @@
 # igus_rebel_ros2_docker
 
-<img src="img/mobile_manipulator.png" alt="drawing" height="600"/> 
+<img src="img/mobile_manipulator.png" alt="drawing" height="400"/> 
 
 ## Repo Structure and ROS2 Packages
 This is a core breakdown of the official documentation to the FE-Project of Hannes Bornamann, Mathias Fuhrer and Robin Wolf at the Hochschule Karlsruhe (SS24). This readme should guide users to get familiar with the igus rebel 6DoF robot arm and its capabilities. Deeper informations and background knowledge is provided in the offical documentation only.
