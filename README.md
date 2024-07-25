@@ -1,12 +1,14 @@
 # igus_rebel_ros2_docker
 
-## Repo Structure and ROS2 Packages:
+<img src="img/mobile_manipulator.png" alt="drawing" height="600"/> 
+
+## Repo Structure and ROS2 Packages
 This is a core breakdown of the official documentation to the FE-Project of Hannes Bornamann, Mathias Fuhrer and Robin Wolf at the Hochschule Karlsruhe (SS24). This readme should guide users to get familiar with the igus rebel 6DoF robot arm and its capabilities. Deeper informations and background knowledge is provided in the offical documentation only.
 The docker container provided inside this repo runs on the RasperryPi inside the robot base and handles all tasks of the robot control. Moreover the same container can be used by a user to control the robot via RVIZ-GUI or self written high level control scripts. The users PC has just to be logged in a the hosted local network.
 
-## Usage of containerized enviroments with Docker:
+## Usage of containerized enviroments with Docker
 ### Introduction:
-The usage of Docker is a common Praxis when working with ROS2. The biggest advantage of devbeloping a ROS ecosystem inside a containerized enviroment is that it can be used independent of the host hardware.
+The usage of Docker is a common praxis when working with ROS2. The biggest advantage of devbeloping a ROS2 ecosystem inside a containerized enviroment is that it can be used independent of the host hardware.
 Everyone who wants to use this repo has just to clone the repo from GitHub to the local disk and run the Dockerfile. No ROS2 installation on the host machine necessary !
 All needed ROS2-Packages are installed and set up by default when running the Dockerfile. Moreover the network setup for the ROS2 Node communication over topics with fast-RTPS defined in the dds_profile.xml is done automatically.
 
@@ -24,12 +26,12 @@ Depending on whether you want to use the software on your PC (with amd64 process
 # For PC with amd64: (https://hub.docker.com/r/osrf/ros/tags?page=1&page_size=&name=&ordering=?)
 FROM osrf/ros:$ROS_DISTRO-desktop as base
 
-#For RaspberryPi with arm64: (https://hub.docker.com/r/arm64v8/ros/tags)
+# For RaspberryPi with arm64: (https://hub.docker.com/r/arm64v8/ros/tags)
 FROM arm64v8/ros:$ROS_DISTRO as base
 ```
 
-## Provided ROS2-Packages:
-### Description Packages
+## Provided ROS2-Packages
+### Description Packages:
 
 The description packages provide the full kinematic definition and CAD data of our robot system. In ROS2 the kinematics of the robot is defined in a URDF model. The URDF model can be structred by using the xacro package and define sub-macros which are all put together in the main URDF.
 Moreover some tags regarding the hardware-communication with ROS2-Control and some tags are specified in these packages too.  
@@ -39,7 +41,7 @@ Moreover some tags regarding the hardware-communication with ROS2-Control and so
 - sew_agv_description: kinematic description of the sew-maxo-mts AGV at Hochschule Karlsruhe
 - sew_and_igus_description: combined kinematic description of the arm and the AGV to one united robot with more DoF.
 
-### Bringup and Control Packages
+### Bringup and Control Packages:
 
 These packages provide further functionalities for hardware communication.
 
@@ -48,7 +50,7 @@ These packages provide further functionalities for hardware communication.
 - irc_ros_hardware: defines the controller with a hardware interface for CAN communication between the container and the different axis modules (cloned from https://github.com/CommonplaceRobotics/iRC_ROS/tree/humble/irc_ros_hardware)
 - irc_ros_msgs: defines several custom messages and service types needed for communication purposes when the robot system is active (cloned from https://github.com/CommonplaceRobotics/iRC_ROS/tree/humble/irc_ros_msgs)
   
-### Motion Planning and Application Packages
+### Motion Planning and Application Packages:
 
 These packages provide all functionalities regarding the robots motion planning and the user interface.
 
@@ -58,12 +60,13 @@ These packages provide all functionalities regarding the robots motion planning 
 - igus_moveit_clients: provides a python class handling clients which connect to the servers from the warpper package. The user can call the class methods from a supervised python file to provide a simple approach of using MoveIt motion planning capabilities.
 - robot_application: this package provides a simple programmable interface for the ROS2 ecosystem. The user can implement his own supervised control logic in python conde to move the robot system in simulation and real world by calling the metods provided in the clinet classes (see How To)
 
-## How-To operate the real robot
-The following graphic shows all of the needed hardware buttons and switches.  
-<img src="img/switches_back.png" alt="drawing" width="1200"/>  
-<img src="img/switches_robot.png" alt="drawing" width="1200"/>
+## How-To Operate the real Robot
+### Hardware Overview:
 
-### mount the igus on the AGV
+The following graphic shows all of the needed hardware buttons and switches.  
+<img src="img/switches_back.png" alt="drawing" height="400"/> <img src="img/switches_robot.png" alt="drawing" height="400"/>
+
+### Mount the Robot on the AGV:
 
 **Note:** This should only be done by experienced and authorized personal with deactivated AGV!
 
@@ -72,19 +75,19 @@ The following graphic shows all of the needed hardware buttons and switches.
 3) place the plate with the igus and the cabinet on top of the agv
 4) push the power and ethernet cable to the hub mounted on the AGVs steel plate
 5) connect the ethernet cable to the switch in the AGVs electrics drawer (red cable):  
-   <img src="img/ethernet.png" alt="drawing" width="1200"/>
+   <img src="img/ethernet.png" alt="drawing" height="300"/>
 6) connect the power cable to the electrical load hub:  
-   <img src="img/powercable.png" alt="drawing" width="1200"/>
+   <img src="img/powercable.png" alt="drawing" height="300"/>
 7) mount the AGVs steel plate witn 2 M8 bolts in the front and mount the robot plate with 3 M8 bolts in the back
 8) turn on the agv and the robot to check functionality
 
-### start the robot
+### Start the Robot:
 
 1) turn on the AGV by pressing and holding the green and blue button for a few seconds
 2) check, if the emergency stop is not pushed, if so then pull the emergency-stop out to enable the robot to start
 3) turn on the main switch
 4) wait until the robot has completely booted. You should hear a quiet "klick" when the brakes release and you should notice a new local network named "AGV" is hosted by the robot.
-5) clone the repo on your private user PC and build and start the docker container (**Iportant:** during these steps, you are not allowed to be logged in to the robots private network!) 
+5) clone the repo on your private user PC and build and start the docker container (**Important:** during these steps, you are not allowed to be logged in to the robots private network!) 
 6) after the container has started, kill the opened terminal with ctrl+C, the container keeps running in the background
 7) connect your user PC to the robots local network named "AGV"
 8) kill and restart the docker container to pass the new network settings with ```docker kill igusrebel``` and ```docker start igusrebel```
@@ -93,13 +96,13 @@ The following graphic shows all of the needed hardware buttons and switches.
     
 **Note:** steps 5 and 6 are only recommendet for the first usage, for any further usages these steps can be skipped
 
-### restart the robot after an emergency stop
+### Restart the Robot after an Emergency Stop:
 
 1) pull the emergency-stop out to enable the robot to start
-2) reboot the roboot with the small red button on the robot base
+2) reboot the roboot by pressing the small red button on the robot base
 3) go back to 4) above
 
-### move the robot with RVIZ
+### Move the Robot with RVIZ:
 
 1) move to the newly opened terminal window from 10) above
 2) launch RVIZ with: ```ros2 launch irc_ros_bringup rviz.launch.py``` 
@@ -108,9 +111,9 @@ The following graphic shows all of the needed hardware buttons and switches.
 5) PTP: plan and execute the trajectory with the "plan and execute" button in the window at the bottom right (MotionPlanning/Planning).   
    LIN: click the checkbox "USe Cartesian Path" and then press the "plan and execute" button in the window at the bottom right (MotionPlanning/Planning).
 
-The robot shold move now. (Hint: you can change planning algorithms and parameters to experience the different robot behaviors)
+The robot shold move now. (**Hint**: you can change planning algorithms and parameters to experience the different robot behaviors)
 
-### run own control scripts
+### Run own Control Scripts:
 
 Its recommendet to do these tasks in a terminal window parallel to using RVIZ, because all motions can be checked here.
 
@@ -118,12 +121,12 @@ Its recommendet to do these tasks in a terminal window parallel to using RVIZ, b
 2)  execute your supervised control script: ```ros2 run robot_application <your_control_script>```
 3)  you should see the robots motion in RVIZ and your codes terminal feedback prints in the second terminal
    
-## How-To write own control scripts
+## How-To write own Control Scripts
 
 1) open the repo in VSCode or a similar programming IDE on your user PC
-2) navigate to: src/robot_application/robot_application
+2) navigate to: ```src/robot_application/robot_application```
 3) add a new python file
-4) add the new python file entrypoint to the setup.py file similar to the provided example
+4) add the new python file entrypoint to the ```setup.py``` file similar to the provided example
 5) Write your own control script with the provided methods (shown below). You also can take the provided example as a base and develop your code in there.
 
 ```python
