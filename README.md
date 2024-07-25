@@ -17,7 +17,7 @@ To use the providede Dockerfile the following prequisities are required on your 
 - Ubuntu 22.04 (NOT in a Virtual Machine !) https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview
 - Working installation of Docker Engine https://docs.docker.com/engine/install/ubuntu/
 
-### Usage - Preperations:
+### Preperations:
 We use a RaspberryPi 5 with 8GB RAM and installed Ubuntu 24.04 on it using the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
 On Ubuntu we then installed docker acording to this [tutorial](https://docs.docker.com/engine/install/ubuntu/). We also recomend to install terminater `sudo apt install terminator`.
 
