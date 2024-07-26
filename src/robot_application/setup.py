@@ -24,6 +24,8 @@ setup(
     entry_points={
         'console_scripts': [
             'test_robot = robot_application.test_arm_client:main',  
+            'video = robot_application.video_sequence:main',
+            'video_joints = robot_application.video_sequence_joints:main',
         ],
     },
 )
