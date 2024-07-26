@@ -155,6 +155,20 @@ Its recommendet to do these tasks in a terminal window parallel to using RVIZ, b
 4) add the new python file entrypoint to the ```setup.py``` file similar to the provided example
 5) Write your own control script with the provided methods (shown below). You also can take the provided example as a base and develop your code in there.
 
+Its required to develop and test your control script with mock hardware before you connect to the real robot. Follow these steps:
+
+1) disconnect from the local network AGV
+2) start the ```igusrebel``` docker container with ```socker start igusrebel``` or if its up already, connect a new terminal to it with ```docker exec -it igusrebel bash```
+3) source workspace with ```source install/setup.bash```
+4) launch the robot in mock hardware mode with ```ros2 launch irc_ros_bringup rebel_on_agv hardware_protocol:=mock_hardware```
+5) connect another terminal to the container and source
+6) launch rviz with ```ros2 launch irc_ros_bringup rviz.launch.py```
+7) connect another terminal to the container and source
+8) build your workspace with ```colcon build``` and source with ```source install/setup.bash``` to make your written control script executable
+9) run your control script with ```ros2 run robot_application <your_control_script>```
+
+Now you should recognize the robot executing your commands in RVIZ. 
+
 ```python
 # class variables
 self.home_position = [0.0,0.0,0.0,0.0,0.0,0.0]  # [joint1, joint2, joint3, joint4, joint5, joint6]
