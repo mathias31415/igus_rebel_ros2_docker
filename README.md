@@ -112,7 +112,7 @@ The following graphic shows all of the needed hardware buttons and switches.
 1) turn on the AGV by pressing and holding the green and blue button for a few seconds
 2) check, if the emergency stop is not pushed, if so then pull the emergency-stop out to enable the robot to start
 3) turn on the main switch
-4) wait until the robot has completely booted. You should hear a quiet "klick" when the brakes release and you should notice a new local network named "AGV" is hosted by the robot.
+4) wait until the robot has completely booted. You should hear a quiet "klick" when the brakes release and you should notice a new local network named "AGV" is hosted by the robot. Moreover light og the green button on the AGV goes out.
 5) clone the repo on your private user PC and build and start the docker container (**Important:** during these steps, you are not allowed to be logged in to the robots private network!) 
 6) after the container has started, kill the opened terminal with ctrl+C, the container keeps running in the background
 7) connect your user PC to the robots local network named "AGV" (password: "AGV12345")
