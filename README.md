@@ -3,7 +3,7 @@
 <img src="img/mobile_manipulator.png" alt="drawing" height="400"/> 
 
 ## Repo Structure and ROS2 Packages
-This is a core breakdown of the official documentation to the FE-Project of Hannes Bornamann, Mathias Fuhrer and Robin Wolf at the Hochschule Karlsruhe (SS24). This readme should guide users to get familiar with the igus rebel 6DoF robot arm and its capabilities. Deeper informations and background knowledge is provided in the offical documentation only.
+This is a core breakdown of the official documentation to the FE-Project of Hannes Bornamann, Mathias Fuhrer and Robin Wolf at the Hochschule Karlsruhe (SS24). The main repo with the project documentation can be found [here](https://github.com/mathias31415/igus_rebel_on_sew_agv). This readme should guide users to get familiar with the igus rebel 6DoF robot arm and its capabilities. Deeper informations and background knowledge is provided in the offical documentation only.
 The docker container provided inside this repo runs on the RasperryPi inside the robot base and handles all tasks of the robot control. Moreover the same container can be used by a user to control the robot via RVIZ-GUI or self written high level control scripts. The users PC has just to be logged in a the hosted local network.
 
 ## Usage of containerized enviroments with Docker
