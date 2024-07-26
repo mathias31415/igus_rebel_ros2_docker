@@ -28,7 +28,6 @@ def main():
 
     approach1_feedback = robot.ptp(approach_pick_pose)
     print(f'PTP to approach_pick_pose feedback: {approach1_feedback}')
-    time.sleep(10)
 
     # move the robot to pick pose
     pick_movenemt = Affine((0.15, 0.0, 0.0))    # defined in tcp coordinates
@@ -37,7 +36,6 @@ def main():
     robot.setVelocity(0.25)
     pick_feedback = robot.lin(pick_pose)
     print(f'LIN to pick_pose feedback: {pick_feedback}')
-    time.sleep(10)
 
 
     # move the robot back to approach pose
@@ -50,7 +48,6 @@ def main():
     robot.setVelocity(0.8)
     approach3_feedback = robot.ptp(approach_place_pose)
     print(f'PTP to approch_place_pose feedback: {approach3_feedback}')
-    time.sleep(10)
 
 
     # move the robot to place pose
@@ -60,7 +57,6 @@ def main():
     robot.setVelocity(0.25)
     place_feedback = robot.lin(place_pose)
     print(f'LIN to place_pose feedback: {place_feedback}')
-    time.sleep(10)
 
 
     # move the robot back to approach place pose
