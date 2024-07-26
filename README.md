@@ -246,4 +246,4 @@ def lin(self, pose: Affine):
 ### Igus Joint States Sensor Values:
 Sometimes the Igus joint states read from the hardware are 180 degrees moved to the real joint states when the system starts up. Thats why motion planning with the control script or RVIZ is not available of fails. We discovered thats a hardware issue and can not solved from the ROS2 side.  
 **Solution:** Turn the main switch of the igus off, wait a few seconds and turn it on. The hardware will execute a new initialization. 
-Pressing only the reboot button does not fix the error.
+Pressing only the reboot button does not fix the error
