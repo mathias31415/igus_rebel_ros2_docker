@@ -3,16 +3,9 @@ Description=Setup CAN interface
 After=network.target
 
 [Service]
-ExecStart=/PATH_to_script/setup_can.sh
+ExecStart=/YOUR_PATH/setup_can.sh
 Restart=always
 User=root
 
 [Install]
 WantedBy=multi-user.target
-
-
----> TODO:
-1) move this file to /etc/systemd/system/
-2) replace PATH_to_script with the real path: on raspi: /home/agv/Igus_and_AGV/igus_rebel_ros2_docker/
-2) enable service so that it runs on boot sudo systemctl enable setup_can.service
-3) reboot

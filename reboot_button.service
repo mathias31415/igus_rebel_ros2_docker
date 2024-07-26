@@ -3,17 +3,10 @@ Description=Wait for Pressed Reboot Button and Execute
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 PATH_to_script/reboot_on_button.py
+ExecStart=/usr/bin/python3 YOUR_PATH/reboot_on_button.py
 WorkingDirectory=PATH_to_script
 Restart=always
-User=YOUR_USER
+User=root
 
 [Install]
 WantedBy=multi-user.target
-
----> TODO:
-1) move this file to /etc/systemd/system/
-2) replace PATH_to_script with the real path: on raspi: /home/agv/Igus_and_AGV/igus_rebel_ros2_docker/
-3) replace YOUR_USER with root
-4) enable service so that it runs on boot sudo systemctl enable setup_xhost.service
-5) reboot

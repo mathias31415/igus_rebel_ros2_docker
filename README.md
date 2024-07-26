@@ -17,7 +17,11 @@ To use the providede Dockerfile the following prequisities are required on your 
 - Ubuntu 22.04 (NOT in a Virtual Machine !) https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview
 - Working installation of Docker Engine https://docs.docker.com/engine/install/ubuntu/
 
-### Preperations:
+### Preperations on the RasperryPi/ Hardware-PC:
+
+***--- These steps are only required if you want to exchange our RasperryPi 5 in the robot base ---***  
+
+#### Installations:
 We use a RaspberryPi 5 with 8GB RAM and installed Ubuntu 24.04 on it using the [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
 On Ubuntu we then installed docker acording to this [tutorial](https://docs.docker.com/engine/install/ubuntu/). We also recomend to install terminater `sudo apt install terminator`.
 
@@ -29,6 +33,28 @@ FROM osrf/ros:$ROS_DISTRO-desktop AS base
 # For RaspberryPi with arm64: (https://hub.docker.com/r/arm64v8/ros/tags)
 FROM arm64v8/ros:$ROS_DISTRO AS base
 ```
+
+#### Clone the provided Repository:
+  
+```git clone https://github.com/mathias31415/igus_rebel_ros2_docker.git```
+
+#### Configure Autostart with Systemd Services:
+To perform the autostart capabilities of our system on a different PC connected to the hardware (instead of the RasperryPi 5 provided), you have to do some additional configurations on your hardware-PC/ RasperryPi.
+
+1) change the path placeholders ```YOUR_PATH``` in the ```<name>.service``` files to the ABSOLUTE path to your cloned repo (igus_rebel_ros2_docker)
+2) move all ```<name>.service``` files to ```/etc/systemd/system``` (sudo required)
+3) enable and activate every single systemd service with ```sudo systemctl enable <name>.service``` and ```sudo systemctl start <name>.service```
+
+If you reboot the hardware PC now, the configuration of the used CAN-adapter and WIFI-hotspot is done automatically. When pressing the red reboot-buttton (connected to RasperryPi GPIO 18/ GND), a safe-reboot should be executed.
+
+#### Build and Start the Docker Container:
+1) move to the cloned repo
+2) build the container with ```./build_docker.sh``` (active WIFI-connection required!)
+3) start the container with ```./start_docker.sh``` 
+4) kill the current terminal with ctrl+C
+5) check if the container ```igusrebel``` is still running in the background with ```docker ps```
+
+
 
 ## Provided ROS2-Packages
 ### Description Packages:
