@@ -161,7 +161,7 @@ Its recommendet to do these tasks in a terminal window parallel to using RVIZ, b
 Its required to develop and test your control script with mock hardware before you connect to the real robot. Follow these steps:
 
 1) disconnect from the local network AGV
-2) start the ```igusrebel``` docker container with ```socker start igusrebel``` or if its up already, connect a new terminal to it with ```docker exec -it igusrebel bash```
+2) start the ```igusrebel``` docker container with ```docker start igusrebel``` or if its up already, connect a new terminal to it with ```docker exec -it igusrebel bash```
 3) source workspace with ```source install/setup.bash```
 4) launch the robot in mock hardware mode with ```ros2 launch irc_ros_bringup rebel_on_agv.launch.py hardware_protocol:=mock_hardware```
 5) connect another terminal to the container and source
