@@ -49,10 +49,11 @@ If you reboot the hardware PC now, the configuration of the used CAN-adapter and
 
 #### Build and Start the Docker Container:
 1) move to the cloned repo
-2) build the container with ```./build_docker.sh``` (active WIFI-connection required!)
-3) start the container with ```./start_docker.sh``` 
-4) kill the current terminal with ctrl+C
-5) check if the container ```igusrebel``` is still running in the background with ```docker ps```
+2) make sure the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py", "hardware_protocol:=mock_hardware"] ``` is a comment and the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py"]``` executable code  
+3) build the container with ```./build_docker.sh``` (active WIFI-connection required!)
+4) start the container with ```./start_docker.sh``` 
+5) kill the current terminal with ctrl+C
+6) check if the container ```igusrebel``` is still running in the background with ```docker ps```
 
 
 
