@@ -117,14 +117,14 @@ The following graphic shows all of the needed hardware buttons and switches.
 5) clone the repo on your private user PC with ```git clone https://github.com/mathias31415/igus_rebel_ros2_docker.git```
 6) navigate to the Dockerfile, make the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py", "hardware_protocol:=mock_hardware"] ``` to a comment and the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py"]``` to executable code  
     (**Note:** kill and remove the old container if its running in the background with ```docker kill igusrebel``` and ```docker rm igusrebel```)
-7) build the ```igusrebel``` docker container with ```./build_docker.sh``` and start it with ```start_docker.sh``` (**Important:** during these steps, you are not allowed to be logged in to the robots private network!) 
-8) after the container has started, kill the opened terminal with ctrl+C, the container keeps running in the background
-9)  connect your user PC to the robots local network named "AGV" (password: "agv12345")
-10) kill and restart the docker container to pass the new network settings with ```docker kill igusrebel``` and ```docker start igusrebel```
-11) open another terminal window and connect to the container with ```docker exec -it igusrebel bash```
-12) source the workspace with ```source install/setup.bash```
+7) build the ```igusrebel``` docker container with ```./build_docker.sh``` and start it with ```./start_docker.sh```  
+   (**Important:** during these steps, you are not allowed to be logged in to the robots private network!) 
+9) after the container has started, kill the opened terminal with ctrl+C, the container keeps running in the background
+10)  connect your user PC to the robots local network named "AGV" (password: "agv12345")
+12) open another terminal window and connect to the container with ```docker exec -it igusrebel bash```
+13) source the workspace with ```source install/setup.bash```
     
-**Note:** steps 5 is only recommendet for the first usage and 6, 7 after switching between real hardware and mock hardware, for any further usages these steps can be skipped.
+**Note:** steps 5 is only recommendet for the first usage and 6, 7 after switching between real hardware and mock hardware. For any further usages these steps can be skipped.
 
 ### Restart the Robot after an Emergency Stop:
 
@@ -142,14 +142,6 @@ The following graphic shows all of the needed hardware buttons and switches.
    LIN: click the checkbox "Use Cartesian Path" and then press the "plan and execute" button in the window at the bottom right (MotionPlanning/Planning).
 
 The robot shold move now. (**Hint**: you can change planning algorithms and parameters to experience the different robot behaviors)
-
-### Run own Control Scripts:
-
-Its recommendet to do these tasks in a terminal window parallel to using RVIZ, because all motions can be checked here with mock hardware before using the real hardware.
-
-1)  connect a new, second terminal to the running container on your user PC with: ```docker exec -it igusrebel bash``` and source inside the new terminal with ```source install/setup.bash```
-2)  execute your supervised control script: ```ros2 run robot_application <your_control_script>```
-3)  you should see the robots motion in RVIZ and your codes terminal feedback prints in the second terminal
    
 ## How-To write own Control Scripts
 
@@ -168,15 +160,31 @@ Its required to develop and test your control script with mock hardware before y
 2) navigate to the ```Dockerfile```, make the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py"] ``` to a comment and the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py", "hardware_protocol:=mock_hardware"]``` to executable code
 3) kill and remove the old container if its running in the background with ```docker kill igusrebel``` and ```docker rm igusrebel```
 4) navigate to the coloned repo ```igus_rebel_ros2_docker```
-5) build the ```igusrebel``` docker container with ```./build_docker.sh``` and start it with ```start_docker.sh```
-6) connect another terminal to the container and source
+5) build the ```igusrebel``` docker container with ```./build_docker.sh``` and start it with ```./start_docker.sh```
+6) connect another terminal with ```docker exec -it igusrebel bash``` to the container and source with ```source install/setup.bash```
 7) launch rviz with ```ros2 launch irc_ros_bringup rviz.launch.py```
 8)  connect another terminal to the container with ```docker exec -it igusrebel bash```
 9)  build your workspace with ```colcon build``` and source with ```source install/setup.bash``` to make your written control script executable
 10) run your control script with ```ros2 run robot_application <your_control_script>```
 
-Now you should recognize the robot executing your commands in RVIZ. 
+You should see the robots motion in RVIZ and your codes terminal feedback prints in the second terminal
 
+### Run a Control Script on real Hardware:
+
+**Note:** If you dont have to switch between mock hardware mode and real hardware mode you can skip steps 2 - 5
+
+1) connect to the local network AGV (password: agv12345)
+2) navigate to the ```Dockerfile```, make the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py", "hardware_protocol:=mock_hardware"] ``` to a comment and the line ```CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py"]``` to executable code
+3) kill and remove the old container if its running in the background with ```docker kill igusrebel``` and ```docker rm igusrebel```
+4) navigate to the coloned repo ```igus_rebel_ros2_docker```
+5) build the ```igusrebel``` docker container with ```./build_docker.sh``` and start it with ```./start_docker.sh```
+6) connect another terminal with ```docker exec -it igusrebel bash``` to the container and source with ```source install/setup.bash```
+7) launch rviz with ```ros2 launch irc_ros_bringup rviz.launch.py```
+8) connect another terminal to the container with ```docker exec -it igusrebel bash```
+9) build your workspace with ```colcon build``` and source with ```source install/setup.bash``` to make your written control script executable
+10) run your control script with ```ros2 run robot_application <your_control_script>```
+
+You should see the robots motion in RVIZ and real world.
 
 ### Provided Methods:
 ```python
