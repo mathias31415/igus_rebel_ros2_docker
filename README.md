@@ -115,7 +115,7 @@ The following graphic shows all of the needed hardware buttons and switches.
 4) wait until the robot has completely booted. You should hear a quiet "klick" when the brakes release and you should notice a new local network named "AGV" is hosted by the robot. Moreover light og the green button on the AGV goes out.
 5) clone the repo on your private user PC and build and start the docker container (**Important:** during these steps, you are not allowed to be logged in to the robots private network!) 
 6) after the container has started, kill the opened terminal with ctrl+C, the container keeps running in the background
-7) connect your user PC to the robots local network named "AGV" (password: "AGV12345")
+7) connect your user PC to the robots local network named "AGV" (password: "agv12345")
 8) kill and restart the docker container to pass the new network settings with ```docker kill igusrebel``` and ```docker start igusrebel```
 9) open another terminal window and connect to the container with ```docker exec -it igusrebel bash```
 10) source the workspace with ```source install/setup.bash```
