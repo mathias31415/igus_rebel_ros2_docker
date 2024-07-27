@@ -149,12 +149,15 @@ Its recommendet to do these tasks in a terminal window parallel to using RVIZ, b
    
 ## How-To write own Control Scripts
 
+### Create a new Control Script:
+
 1) open the repo in VSCode or a similar programming IDE on your user PC
 2) navigate to: ```src/robot_application/robot_application```
 3) add a new python file
 4) add the new python file entrypoint to the ```setup.py``` file similar to the provided example
 5) Write your own control script with the provided methods (shown below). You also can take the provided example as a base and develop your code in there.
 
+### Test a new Control Script with Mock Hardware:
 Its required to develop and test your control script with mock hardware before you connect to the real robot. Follow these steps:
 
 1) disconnect from the local network AGV
@@ -169,6 +172,8 @@ Its required to develop and test your control script with mock hardware before y
 
 Now you should recognize the robot executing your commands in RVIZ. 
 
+
+### Provided Methods:
 ```python
 # class variables
 self.home_position = [0.0,0.0,0.0,0.0,0.0,0.0]  # [joint1, joint2, joint3, joint4, joint5, joint6]
