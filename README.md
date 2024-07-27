@@ -163,7 +163,7 @@ Its required to develop and test your control script with mock hardware before y
 4) launch the robot in mock hardware mode with ```ros2 launch irc_ros_bringup rebel_on_agv.launch.py hardware_protocol:=mock_hardware```
 5) connect another terminal to the container and source
 6) launch rviz with ```ros2 launch irc_ros_bringup rviz.launch.py```
-7) connect another terminal to the container and source
+7) connect another terminal to the container with ```docker exec -it igusrebel bash```
 8) build your workspace with ```colcon build``` and source with ```source install/setup.bash``` to make your written control script executable
 9) run your control script with ```ros2 run robot_application <your_control_script>```
 
