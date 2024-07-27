@@ -100,9 +100,11 @@ RUN sed -i 's|exec "\$@"|source "/home/'"${USER}"'/ros2_ws/install/setup.bash"\n
 USER $USER
 
 
-# autostart bringup with rviz
+# autostart bringup when you use the hardware pc
 CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py"] 
 
-#, "hardware_protocol:=mock_hardware"
+# autostart bringup when you use mock hardware on the uer pc
+#CMD ["ros2", "launch", "irc_ros_bringup", "rebel_on_agv.launch.py", "hardware_protocol:=mock_hardware"] 
+
 
 
