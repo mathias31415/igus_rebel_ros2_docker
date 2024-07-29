@@ -265,3 +265,8 @@ def lin(self, pose: Affine):
 Sometimes the Igus joint states read from the hardware are 180 degrees moved to the real joint states when the system starts up. Thats why motion planning with the control script or RVIZ is not available of fails. We discovered thats a hardware issue and can not solved from the ROS2 side.  
 **Solution:** Turn the main switch of the igus off, wait a few seconds and turn it on. The hardware will execute a new initialization. 
 Pressing only the reboot button does not fix the error
+
+
+### Configure CAN-Adapter on other PC to use the Arm without the built-in RasperryPi5:
+```sudo ip link set can0 up type can bitrate 500000 restart-ms 1000```
+This command enables the communication to the robots CAN via the provided USB-Adapter and has to be redone everytime you have disconnected the USB-Adapter. On the RasperryPi5 in the robots base this gets handled by systemd services automatically.
